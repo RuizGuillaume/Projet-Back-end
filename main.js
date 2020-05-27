@@ -11,9 +11,16 @@ app.use(bodyParser.json()); // application/json
 app.use(cors());
 app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
 
-const connectionString = "postgres://postgres:default@localhost/Products";
-const db = new pg.Pool({ connectionString: connectionString });
-const productService = new ProductService(db);
-require('./api/product')(app, productService);
-require('./datamodel/seeder')(productService)
-    .then(app.listen(3333));
+//const connectionString = "postgres://postgres:default@localhost/Products";
+//const db = new pg.Pool({ connectionString: connectionString });
+//const productService = new ProductService(db);
+//require('./api/product')(app, productService);
+//require('./datamodel/seeder')(productService)
+//    .then(app.listen(3333));
+
+
+//Test BDD
+var pg = require("pg")
+var connectionString = "postgres://postgres:default@localhost/Products";
+var client = new pg.Client(connectionString);
+client.connect();

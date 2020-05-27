@@ -6,9 +6,9 @@ module.exports = class ProductService {
     }
     isValid(listProduct) {
         listProduct.shop = product.shop.trim();
-        if (listProduct.shop === "") return false;
-        if (listProduct.date === null) return false;
-        if (listProduct.archived === null) return false;
+        //if (listProduct.shop === "") return false;
+        //if (listProduct.date === null) return false;
+        //if (listProduct.archived === null) return false;
         return true
     }
 };
