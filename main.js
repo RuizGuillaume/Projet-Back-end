@@ -1,26 +1,28 @@
-const pg = require('pg');
+const mysql = require('mysql2');
 const express = require('express');
 const bodyParser = require('body-parser');
+//const cookieParser = require('cookie-parser')
 const cors = require('cors');
 const morgan = require('morgan');
-const ProductService = require("./services/product");
 
-const app = express();
-app.use(bodyParser.urlencoded({ extended: false })); // URLEncoded form data
-app.use(bodyParser.json()); // application/json
-app.use(cors());
+const ProductService = require("./services/listProduct");
+
+const app = express()
+app.use(bodyParser.urlencoded({ extended: false })) // URLEncoded form data
+app.use(bodyParser.json()) // application/json
+app.use(cors())
 app.use(morgan('dev')); // toutes les requêtes HTTP dans le log du serveur
+//app.use(cookieParser()) // read cookies (obligatoire pour l'authentification)
 
-//const connectionString = "postgres://postgres:default@localhost/Products";
-//const db = new pg.Pool({ connectionString: connectionString });
-//const productService = new ProductService(db);
-//require('./api/product')(app, productService);
-//require('./datamodel/seeder')(productService)
-//    .then(app.listen(3333));
+// create the connection to database
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'guillaume',
+  password: '7309',
+  database: 'ArticleList'
+});
 
+const productService = new ProductService(db)
 
-//Test BDD
-var pg = require("pg")
-var connectionString = "postgres://postgres:default@localhost/Products";
-var client = new pg.Client(connectionString);
-client.connect();
+require('./datamodel/seeder')(productService)
+    .then(app.listen(5555))
