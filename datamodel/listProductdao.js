@@ -4,11 +4,11 @@ module.exports = class ListProductDAO extends BaseDAO{
     constructor(db) {
         super(db, "list")
     }
-    getAll()
+    getAll(user)
     {
-        return new Promise((resolve, reject) =>
-            this.db.promise().query("SELECT * FROM list ORDER BY date,shop")
-                .then(([rows, fields]) => resolve(rows))
+        return new Promise((resolve , reject) =>
+            this.db.query("SELECT * FROM liste where manage=$1" , [user.id])
+                .then(res => resolve(res.rows))
                 .catch(e => reject(e))
         )
     }

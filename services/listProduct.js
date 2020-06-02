@@ -2,7 +2,7 @@ const listProductDAO = require("../datamodel/listProductdao");
 
 module.exports = class ProductService {
     constructor(db) {
-        this.dao = new listProductDAO(db)
+        this.listProductdao = new listProductDAO(db)
     }
     isValid(listProduct) {
         listProduct.shop = product.shop.trim();

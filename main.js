@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 
-const ProductService = require("./services/listProduct");
+const productListService = require("./services/listProduct")
+const productService = require("./services/product")
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false })) // URLEncoded form data
@@ -23,6 +24,9 @@ const db = mysql.createConnection({
 });
 
 const productService = new ProductService(db)
+const productListService = new ProductService(db)
 
+require('./api/list')(app, productService , jwt)
+require('./api/item')(app, productListService)
 require('./datamodel/seeder')(productService)
     .then(app.listen(5555))
