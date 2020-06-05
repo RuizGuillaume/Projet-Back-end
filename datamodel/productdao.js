@@ -1,8 +1,8 @@
-const BaseDAO = require('./basedao');
+const BaseDAO = require('./basedao')
 
 module.exports = class ProductDAO extends BaseDAO{
     constructor(db) {
-        super(db, "product")
+        super(db)
     }
     insert(product) {
         return this.db.query("INSERT INTO product(productName,quantity) VALUES ($1,$2,$3,$4)",
@@ -18,4 +18,4 @@ module.exports = class ProductDAO extends BaseDAO{
         return this.db.query("UPDATE product SET productName=$2, quantity=$3, checked=$4 WHERE id=$1",
             [product.id, product.productName, product.quantity, product.checked])
     }
-};
+}

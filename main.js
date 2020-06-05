@@ -1,12 +1,12 @@
-const mysql = require('mysql2');
-const express = require('express');
-const bodyParser = require('body-parser');
+const mysql = require('mysql2')
+const express = require('express')
+const bodyParser = require('body-parser')
 //const cookieParser = require('cookie-parser')
-const cors = require('cors');
-const morgan = require('morgan');
+const cors = require('cors')
+const morgan = require('morgan')
 
-const productListService = require("./services/listProduct")
-const productService = require("./services/product")
+const ProductService = require("./services/product")
+const ProductListService = require("./services/productList")
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false })) // URLEncoded form data
@@ -21,12 +21,12 @@ const db = mysql.createConnection({
   user: 'guillaume',
   password: '7309',
   database: 'ArticleList'
-});
+})
 
 const productService = new ProductService(db)
-const productListService = new ProductService(db)
+const productListService = new ProductListService(db)
 
-require('./api/list')(app, productService , jwt)
-require('./api/item')(app, productListService)
+require('./api/productList')(app, productService)
+require('./api/product')(app, productListService)
 require('./datamodel/seeder')(productService)
     .then(app.listen(5555))
