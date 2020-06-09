@@ -1,13 +1,10 @@
 module.exports = (app, ProductListService) => {
-    try{
-        app.get("/productList", async (req, res) => {
+    app.get("/productList", async (req, res) => {
+        try {
             res.json(await ProductListService.productListdao.getAll())
-            return res.rows
-        })
-    }
-    catch (e) {
-        res.status(500).end()
-    }
+        }
+        catch (e) { res.status(400).end()}
+    })
     app.get("/productList/:id", async (req, res) => {
         try {
             const productList = await ProductListService.productListdao.getById(req.params.id)

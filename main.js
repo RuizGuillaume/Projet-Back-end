@@ -20,13 +20,13 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'guillaume',
   password: '7309',
-  database: 'ArticleList'
+  database: 'productlist'
 })
 
 const productService = new ProductService(db)
 const productListService = new ProductListService(db)
 
-require('./api/productList')(app, productService)
-require('./api/product')(app, productListService)
-require('./datamodel/seeder')(productService)
+require('./api/productList')(app, productListService)
+require('./api/product')(app, productService)
+require('./datamodel/seeder')(productService, productListService)
     .then(app.listen(5555))

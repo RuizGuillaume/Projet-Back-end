@@ -7,8 +7,8 @@ module.exports = class ProductListDAO extends BaseDAO {
     getAll()
     {
         return new Promise((resolve , reject) =>
-            this.db.query("SELECT * FROM list")// , [user.id])
-                .then(res => resolve(res.rows))
+            this.db.promise().query("SELECT * FROM list")// , [user.id])
+                .then(([rows, fields]) => resolve(rows))
                 .catch(e => reject(e))
         )
     }
