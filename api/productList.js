@@ -7,12 +7,9 @@ module.exports = (app, ProductListService) => {
     })
     app.get("/productList/:id", async (req, res) => {
         try {
-            const productList = await ProductListService.productListdao.getById(req.params.id)
-            if (productList === undefined) {
-                return res.status(404).end()
-            }
-            return res.json(productList)
-        } catch (e) { res.status(400).end() }
+            res.json(await ProductListService.productListdao.getById(req.params.id))
+        }
+        catch (e) { res.status(400).end()}
     })
     app.post("/productList", (req, res) => {
         const productList = req.body
