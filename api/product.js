@@ -1,6 +1,8 @@
 module.exports = (app, ProductService) => {
     app.get("/product", async (req, res) => {
-        res.json(await ProductService.productdao.getAll())
+        try {
+            res.json(await ProductService.productdao.getAll())
+        } catch (e) { res.status(400).end()}
     })
     app.get("/product/:id", async (req, res) => {
         try {
