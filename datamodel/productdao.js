@@ -8,7 +8,7 @@ module.exports = class ProductDAO extends BaseDAO{
         return this.db.promise().query("INSERT INTO product(productName,quantity) VALUES ($1,$2,$3,$4)",
             [product.productName, product.quantity, product.checked, product.list])
     }
-    getAll()  //Tous les produits
+    getAll() // Tous les produits
     {
         return new Promise((resolve , reject) =>
             this.db.promise().query("SELECT * FROM product")
